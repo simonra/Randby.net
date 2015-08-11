@@ -19,10 +19,6 @@ html, body{
 	padding-top: 0.3em;
 }
 
-.clear{
-	clear: both;
-}
-
 p{
 	font-size: 1em;
 	line-height: 1.4em;
@@ -32,6 +28,39 @@ p{
 
 p b{
 	font-weight: bold;
+}
+
+/*IDs:*/
+
+#contact{
+	float: right;
+}
+
+#contact ul{
+	list-style-type: none;
+	font-size: 0.9em;
+	margin-top: 2px;
+}
+
+#contact ul li{
+	margin-bottom: 3px;
+	color: #444;
+}
+
+#contactDetails ul li a, a[href^=tel] {
+	color: #444;
+	text-decoration: none;
+}
+
+#contactDetails ul li a:hover {
+	color: #cf8a05;
+}
+
+#cv{
+	width: 90%;
+	max-width: 800px;
+	background: #f3f3f3;
+	margin: 30px auto;
 }
 
 #languageButton {
@@ -65,18 +94,12 @@ p b{
 	text-align: right;*/
 }
 
-
-#cv{
-	width: 90%;
-	max-width: 800px;
-	background: #f3f3f3;
-	margin: 30px auto;
+#mainContent{
+	padding: 0 40px;
 }
 
-.basicInfo{
-	padding: 25px 35px;
-	border-bottom: 2px solid #cf8a05;
-	background: #ededed;
+#name{
+	float: left;
 }
 
 #name h1{
@@ -92,10 +115,6 @@ p b{
 	font-family: 'Rokkitt', Helvetica, Arial, sans-serif;
 }
 
-#mainContent{
-	padding: 0 40px;
-}
-
 #profilePicture{
 	width: 12.5%;
 	float: left;
@@ -109,74 +128,20 @@ p b{
 	border-radius: 1em;
 }
 
-#name{
-	float: left;
+/*Classes*/
+
+.basicInfo{
+	padding: 25px 35px;
+	border-bottom: 2px solid #cf8a05;
+	background: #ededed;
 }
 
-#contact{
-	float: right;
-}
-
-#contact ul{
-	list-style-type: none;
-	font-size: 0.9em;
-	margin-top: 2px;
-}
-
-#contact ul li{
-	margin-bottom: 3px;
-	color: #444;
-}
-
-#contactDetails ul li a, a[href^=tel] {
-	color: #444; 
-	text-decoration: none;
-}
-
-#contactDetails ul li a:hover { 
-	color: #cf8a05;
-}
-
-.section{
-	border-top: 1px solid #dedede;
-	padding: 20px 0 0;
-}
-
-.section:last-child {
-	padding: 20px 0 10px;
+.clear{
+	clear: both;
 }
 
 .firstSection {
 	border-top: 0;
-}
-
-.sectionTitle {
-	float: left;
-	width: 25%;
-}
-
-.sectionContent {
-	float: right;
-	width: 72.5%;
-}
-
-.sectionTitle h1 {
-	font-family: 'Rokkitt', Helvetica, Arial, sans-serif;
-	font-style: italic;
-	font-size: 1.5em;
-	color: #cf8a05;
-}
-
-.sectionContent h2 {
-	font-family: 'Rokkitt', Helvetica, Arial, sans-serif;
-	font-size: 1.5em;
-	margin-bottom: -2px;
-}
-
-.subDetails {
-	font-size: 0.8em;
-	font-style: italic;
-	margin-bottom: 3px;
 }
 
 .itKompetanse {
@@ -190,6 +155,47 @@ p b{
 }
 
 .itKompetanse ul li {
+	margin-bottom: 3px;
+}
+.onlyPrint {
+	display: none;
+}
+
+.section{
+	border-top: 1px solid #dedede;
+	padding: 20px 0 0;
+}
+
+.section:last-child {
+	padding: 20px 0 10px;
+}
+
+.sectionContent {
+	float: right;
+	width: 72.5%;
+}
+
+.sectionContent h2 {
+	font-family: 'Rokkitt', Helvetica, Arial, sans-serif;
+	font-size: 1.5em;
+	margin-bottom: -2px;
+}
+
+.sectionTitle {
+	float: left;
+	width: 25%;
+}
+
+.sectionTitle h1 {
+	font-family: 'Rokkitt', Helvetica, Arial, sans-serif;
+	font-style: italic;
+	font-size: 1.5em;
+	color: #cf8a05;
+}
+
+.subDetails {
+	font-size: 0.8em;
+	font-style: italic;
 	margin-bottom: 3px;
 }
 
@@ -207,24 +213,18 @@ p b{
 	color: #888;
 }
 
-.onlyPrint {
-	display: none;
-}
-
-
 @media screen and (min-width: 602px) and (max-width: 800px) {
-	#profilePicture {
-		/*display: none;*/
-		width: 25%;
-	}
-	.noPrint {
-		/*display: none;*/
-	}
-	
 	.itKompetanse {
 	-moz-column-count:2;
 	-webkit-column-count:2;
 	column-count:2;
+	}
+	.noPrint {
+		/*display: none;*/
+	}
+	#profilePicture {
+		/*display: none;*/
+		width: 25%;
 	}
 }
 
@@ -234,32 +234,27 @@ p b{
 		/*margin: 10px auto;*/
 		min-width: 280px;
 	}
-	
-	#profilePicture {
-		/*display: none;*/
-		width: 40%;
-	}
-	
 	#name, #contactDetails {
 		float: none;
 		width: 100%;
 		text-align: center;
 	}
-	
-	.sectionTitle, .sectionContent {
-		float: none;
-		width: 100%;
+	#profilePicture {
+		/*display: none;*/
+		width: 40%;
 	}
-	
-	.sectionTitle {
-		margin-left: -2px;
-		font-size: 1.25em;
-	}
-	
 	.itKompetanse {
 		-moz-column-count:2;
 		-webkit-column-count:2;
 		column-count:2;
+	}
+	.sectionTitle {
+		margin-left: -2px;
+		font-size: 1.25em;
+	}
+	.sectionTitle, .sectionContent {
+		float: none;
+		width: 100%;
 	}
 }
 
@@ -267,22 +262,17 @@ p b{
 	.basicInfo {
 		padding: 15px 15px;
 	}
-	
-	.section {
-		padding: 15px 0 0;
-	}
-	
-	#mainContent {
-		padding: 0 25px;
-	}
-
-	
 	.itKompetanse {
 	-moz-column-count:1;
 	-webkit-column-count:1;
 	column-count:1;
 	}
-	
+	.section {
+		padding: 15px 0 0;
+	}
+	#mainContent {
+		padding: 0 25px;
+	}
 	#name h1 {
 		line-height: .8em;
 		margin-bottom: 4px;
@@ -290,6 +280,25 @@ p b{
 }
 
 @media print {
+	a{
+		text-decoration: none;
+		font-weight: normal;
+		color: #000000;
+	}
+	p{
+		line-height: 1.1em;
+		margin-bottom: none;
+	}
+	#contact li{
+		/*padding-right: 345px;
+	/*	padding-right: 220px;
+		text-align: center;*/
+	}
+	#cv {
+		width: 100%;
+		padding: 0;
+		  margin-bottom: -2em;
+	}
 	#profilePicture img {
 		/*display: none;*/
 		float: left;
@@ -298,62 +307,36 @@ p b{
 		width: 70%;
 		/*margin-bottom: -3em;*/
 	}
-	.onlyPrint {
-		display: block;
+	.basicInfo{
+		/*padding-left: 180px;*/
+		margin-top: -2.5em;
+	}
+	/**/.itKompetanse li{
+		float: left;
+		display: inline;
+		/*width: 20%;*/
+		padding-right: 1em;
+		margin: 0;
 	}
 	.noPrint {
 		display: none;
 	}
-	#cv {
-        width: 100%;
-        padding: 0;
-		  margin-bottom: -2em;
-    }
-    p{
-    	line-height: 1.1em;
-    	margin-bottom: none;
-    }
-    .sectionTitle h1{
-    	font-size: 1.1em;
-    }
-    a{
-    	text-decoration: none;
-    	font-weight: normal;
-    	color: #000000;
-    }
-
-    
-    .sectionContent{
-    	font-size: 0.9em;
-    	float: right;
-    	padding: none;
-    }
-    .sectionContent h2{
-    	font-size: 1em;
-    	padding: none;
+	.onlyPrint {
+		display: block;
+	}
+	.sectionContent{
+		font-size: 0.9em;
+		float: right;
+		padding: none;
+	}
+	.sectionTitle h1{
+		font-size: 1.1em;
+	}
+	.sectionContent h2{
+		font-size: 1em;
+		padding: none;
 		font-family: 'Georgia';
-    }
-    /**/.itKompetanse li{
-    	float: left;
-    	display: inline;
-    	/*width: 20%;*/
-    	padding-right: 1em;
-		margin: 0;
-    }
-
-    .basicInfo{
-    	/*padding-left: 180px;*/
-		
-		margin-top: -2.5em;
-    }
-    #contact li{
-		/*padding-right: 345px;
-	/*	padding-right: 220px;
-		text-align: center;*/
-
-    }
-
-
+	}
 	/*.topLink {
 		display: none;
 	}*/
