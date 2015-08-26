@@ -213,6 +213,10 @@ p b{
 	color: #888;
 }
 
+.emph{
+	font-style: italic;
+}
+
 @media screen and (min-width: 602px) and (max-width: 800px) {
 	.itKompetanse {
 	-moz-column-count:2;
@@ -283,7 +287,7 @@ p b{
 	a{
 		text-decoration: none;
 		font-weight: normal;
-		color: #000000;
+		color: #000070;
 	}
 	p{
 		line-height: 1.1em;
@@ -329,12 +333,19 @@ p b{
 		float: right;
 		padding: none;
 	}
+	.sectionTitle {
+		/*width: 15%;*/
+		margin-right: 0.1em;
+		padding: none;
+		border: none;
+	}
 	.sectionTitle h1{
 		font-size: 1.1em;
 	}
 	.sectionContent h2{
 		font-size: 1em;
 		padding: none;
+		margin-left: 0;
 		font-family: 'Georgia';
 	}
 	/*.topLink {
