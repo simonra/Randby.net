@@ -33,3 +33,44 @@ nav ul a:visited{
 nav ul a:hover{
 	color: #0c80e8;
 }
+
+/*Dropdown with sub-menues:*/
+nav ul li:hover > ul {
+	opacity: 1;
+	visibility: visible;
+}
+nav ul ul, nav ul ul li ul {
+	background: #00c9ff;
+	list-style: none;
+	margin: 0;
+	margin-left: -1em;
+	opacity: 0;
+	padding: 0;
+	position: absolute;
+	visibility: hidden;
+	width: 11em;
+}
+nav ul ul li {
+	clear: both;
+	width: 100%;
+}
+nav ul ul li a {
+	background: none;
+	border: 0 none;
+	clear: both;
+	color: #616161;
+	display: inline-block;
+	float: left;
+	padding-top: 0.5em;
+	text-decoration: none;
+}
+
+/*
+For the last child selector, see this document
+from w3c: https://drafts.csswg.org/selectors-4/#nth-match
+Probably should not be in production in a superserious
+project, but it works well enough in all the major
+browsers to be used in something like my personal homepage...*/
+nav ul ul li:last-child a {
+	padding-bottom: 0.5em;
+}
