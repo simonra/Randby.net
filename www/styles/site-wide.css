@@ -54,6 +54,7 @@ body p:last-child {
 /*Below css taken from this question on stackoverflow and slightly modified to fit my site better: http://stackoverflow.com/questions/9045677/css-help-how-to-format-code-block-and-code-line*/
 code {
 	font-family: "Monaco","Courier New","DejaVu Sans Mono","Bitstream Vera Sans Mono",monospace;
+	font-size: 1em;
 	color: #52595d;
 	border-radius: 0.3em;
 	border: 1px solid #ccc;
@@ -67,6 +68,7 @@ pre {
 	border: 1px solid #cacaca;
 	line-height: 1.2em;
 	font-family: "Monaco","Courier New","DejaVu Sans Mono","Bitstream Vera Sans Mono",monospace;
+	font-size: 1em;
 	text-align: left;
 	padding: 1em;
 	overflow: auto;
