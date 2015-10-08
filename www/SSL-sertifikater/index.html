@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="../styles/site-wide.css" />
+	<link rel="stylesheet" type="text/css" href="../styles/header.css" />
+	<link rel="stylesheet" type="text/css" href="../styles/navbar.css" />
+	<meta charset="UTF-8" />
+	<title>Randby.net - Certificates Tutorial</title>
+</head>
+<body>
+	<header>
+		<a href="http://randby.net"><h3>Randby.net</h3></a>
+	</header>
+	<nav>
+		<ul>
+			<li><a href="../index.html">Hjem</a></li>
+			<li><a href="./kokebok/index.html">Kokebok</a></li>
+			<li>Diverse<ul>
+				<li><a href="./spiral/index.html">Spiral</a></li>
+				<li><a href="./index.html">SSL-sertifikater</a></li>
+			</ul></li>
+		</ul>
+	</nav>
+
+	<h1>How to set up SSL certificates</h1>
+	<h2>Introduction</h2>
+	<p>Here I will briefly outline what I did to fix my SSL certificates, and how to reproduce the process. The tutorial will look at how to create a certificate request using the <code>openssl</code> command, extracting the neccessary keys and files, getting the key signed by <a href="https://www.startssl.com/">startssl</a>, and how to set up apache to use the new shiny certificates properly.</p>
+
+	<h2>Generating a certificate request with <code>openssl</code></h2>
+	<p>Wherever you want to do your work create a <code>.cfg</code> file (I named mine <code>$myHostName.cfg</code>), that contains the following:</p>
+
+<pre>[ req ]
+default_bits = 2048
+prompt = no
+encrypt_key = no
+default_md = sha256
+distinguished_name = dn
+utf8 = yes
+
+[ dn ]
+C = NO
+CN = yourHostName.tld</pre>
+
+	<p>Now that you have the <code>$hostName.cfg</code>-file, run the following <code>openssl</code>-command:</p>
+
+	<pre>openssl req -new -config conf/$hostName.cfg -keyout key/$hostName.pem -out req/$hostName.pem</pre>
+
+	<p>For when you finalize the setup, you are going to need the private key from the pair you just genereated. To extract it, run:</p>
+
+	<pre>openssl rsa -in key/$hostName.pem -out key/$privateKeyName</pre>
+	<p>(If you want the public key to mess around with as well the syntax is slightly different: <code>openssl rsa -in key/$hostName.pem -pubout > key/$publicKeyName</code>. But this key should not be neccessary for proceding.) At this point you should have all that is needed to get signed certificate from for an instance <a href="https://www.startssl.com/">startssl</a>.</p>
+
+	<h2>Getting the SSL certificate files</h2>
+	<p>Assuming you are going to use startssl: Go to <a href="https://www.startssl.com/">startssl.com</a> and sign up for an account. In the setup process, don't worry about the browser certificate dialogs. They are related to startssl's login solution and don't have anything to do with the certificate you want to create for your site. When you have signed up, go through the <code>Validations Wizard</code> to prove that you own the domain you want to make a certificate for. It should involve having acces to the adress listed in the whois entry for the domain, or one of <code>postmaster</code>, <code>hostmaster</code> or <code>webmaster</code> <code>@theDomain.tld</code>.</p>
+
+	<p>TODO</p>
+
+	<h2>Verification</h2>
+	<p>To check that you have things set up properly, feed your site through <a href="https://www.startssl.com/">ssllabs</a> SSL server <a href="https://www.ssllabs.com/ssltest/index.html">testing utility</a>. It will give you a comperhensible assesment as to how well you have done stuff, as well as pointers to what specifics you failed and what to read up on to fix possible weaknesses. Remember to check the little box if you don't want your site to appear on the best/worst leaderboards =)</p>
+</body>
+</html>
