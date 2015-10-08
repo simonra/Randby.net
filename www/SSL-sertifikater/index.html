@@ -24,7 +24,7 @@
 
 	<h1>How to set up SSL certificates</h1>
 	<h2>Introduction</h2>
-	<p>Here I will briefly outline what I did to fix my SSL certificates, and how to reproduce the process. The tutorial will look at how to create a certificate request using the <code>openssl</code> command, extracting the neccessary keys and files, getting the key signed by <a href="https://www.startssl.com/">startssl</a>, and how to set up apache to use the new shiny certificates properly.</p>
+	<p>Here I will briefly outline what I did to fix my SSL certificates, and how to reproduce the process. The tutorial will look at how to create a certificate request using the <code>openssl</code> command, extracting the neccessary keys and files, getting the key signed by <a href="https://www.startssl.com/">StartSSL</a>, and how to set up apache to use the new shiny certificates properly. It will asuume that you are using apache, and already have a site up and running.</p>
 
 	<h2>Generating a certificate request with <code>openssl</code></h2>
 	<p>Wherever you want to do your work create a <code>.cfg</code> file (I named mine <code>$myHostName.cfg</code>), that contains the following:</p>
@@ -36,10 +36,23 @@ encrypt_key = no
 default_md = sha256
 distinguished_name = dn
 utf8 = yes
+req_extensions = v3_req
+
+[ v3_req ]
+subjectAltName = @alt_names
 
 [ dn ]
 C = NO
-CN = yourHostName.tld</pre>
+CN = yourHostName.tld
+
+[ alt_names ]
+DNS.0 = yourHostName.tld</pre>
+
+<p>If you want to get certificates for more subdomains, append them in the following manner after the <code>DNS.0</code> entry:</p>
+
+<pre>
+DNS.1 = subdomain1.yourHostName.tld
+DNS.2 = subdomain2.yourHostName.tld</pre>
 
 	<p>Now that you have the <code>$hostName.cfg</code>-file, run the following <code>openssl</code>-command:</p>
 
@@ -48,12 +61,56 @@ CN = yourHostName.tld</pre>
 	<p>For when you finalize the setup, you are going to need the private key from the pair you just genereated. To extract it, run:</p>
 
 	<pre>openssl rsa -in key/$hostName.pem -out key/$privateKeyName</pre>
-	<p>(If you want the public key to mess around with as well the syntax is slightly different: <code>openssl rsa -in key/$hostName.pem -pubout > key/$publicKeyName</code>. But this key should not be neccessary for proceding.) At this point you should have all that is needed to get signed certificate from for an instance <a href="https://www.startssl.com/">startssl</a>.</p>
+	<p>(If you want the public key to mess around with as well the syntax is slightly different: <code>openssl rsa -in key/$hostName.pem -pubout > key/$publicKeyName</code>. But this key should not be neccessary for proceding.) At this point you should have all that is needed to get signed certificate from for an instance <a href="https://www.startssl.com/">StartSSL</a>.</p>
 
 	<h2>Getting the SSL certificate files</h2>
-	<p>Assuming you are going to use startssl: Go to <a href="https://www.startssl.com/">startssl.com</a> and sign up for an account. In the setup process, don't worry about the browser certificate dialogs. They are related to startssl's login solution and don't have anything to do with the certificate you want to create for your site. When you have signed up, go through the <code>Validations Wizard</code> to prove that you own the domain you want to make a certificate for. It should involve having acces to the adress listed in the whois entry for the domain, or one of <code>postmaster</code>, <code>hostmaster</code> or <code>webmaster</code> <code>@theDomain.tld</code>.</p>
+	<p>Assuming you are going to use StartSSL: Go to <a href="https://www.startssl.com/">startssl.com</a> and sign up for an account. In the setup process, don't worry about the browser certificate dialogs. They are related to StartSSL's login solution and don't have anything to do with the certificate you want to create for your site. When you have signed up, go through the <code>Validations Wizard</code> to prove that you own the domain you want to make a certificate for. It should involve having acces to the adress listed in the whois entry for the domain, or one of <code>postmaster</code>, <code>hostmaster</code> or <code>webmaster</code> <code>@theDomain.tld</code>.</p>
 
-	<p>TODO</p>
+	<p>Once you have verified that you own your domain, go to the <code>Certificates Wizard</code> on StartSSL, and select the <code>web server</code> option. When prompted, skip the key-generation step, and follow any instructions. (On the subdomain-question it might be a good idea consider entering <code>www</code>.) If everything has gone smoothly, you should have obtained 3 new files; <code>ca.pem</code>, <code>sub.class1.server.ca.pem</code>, and <code>ssl.crt</code>. These are StartSSL's Root certificate, their cheap (free) intermediate certificate, and your new signed certificate. These files, along with your private key, should be placed in the <code>/etc/apache2/ssl/</code>-folder on your server.</p>
+
+	<p>Before you restart the apache service, you also need to edit the config of the site you want to use SSL. A reasonable place to find it would be in:</p>
+
+	<pre>/etc/apache2/sites-enabled/yourHostName.tld</pre>
+
+	<p>If you have not used SSl before, it should look akin to the following:</p>
+
+<pre>
+&lt;virtualhost *:80&gt;
+	ServerName yourHostName.tld
+	ServerAlias www.yourHostName.tld
+	DocumentRoot /srv/www
+&lt;/virtualhost&gt;</pre>
+
+<p>To get SSL up and running, you need to edit this file to tell apache how it is supposed to do SSL. To check that you are using the most appropriate and updated settings, please reffer to <a href="https://wiki.mozilla.org/Security/Server_Side_TLS">Mozillas page on server side TLS</a>. What needs to be done is to append the following to <code>/etc/apache2/sites-enabled/yourHostName.tld</code>:</p>
+
+<pre>&lt;virtualhost *:443&gt;
+	SSLEngine on
+	SSLProtocol all -SSLv2 -SSLv3
+	SSLCipherSuite ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:DHE-RSA-AES128-G    CM-SHA256:DHE-DSS-AES128-GCM-SHA256:kEDH+AESGCM:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES128-SHA:ECDHE-RS    A-AES256-SHA384:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA:ECDHE-ECDSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-DSS-AES128-SHA256:D    HE-RSA-AES256-SHA256:DHE-DSS-AES256-SHA:DHE-RSA-AES256-SHA:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!3DES:!MD5:!PSK
+	SSLHonorCipherOrder on
+	SSLCompression off
+
+	SSLCertificateFile /etc/apache2/ssl/ssl.crt
+	SSLCertificateKeyFile /etc/apache2/ssl/$privateKeyName
+	SSLCertificateChainFile /etc/apache2/ssl/sub.class1.server.ca.pem
+
+	ServerName yourHostName.tld
+	#Alternatively something else that 'www' if you chose another subdomain
+	ServerAlias www.yourHostName.tld
+	DocumentRoot /srv/www
+&lt;/virtualhost&gt;
+</pre>
+
+	<p>If you at this point want to use only SSL, edit the first block to be:</p>
+
+<pre>
+&lt;virtualhost *:80&gt;
+	ServerName yourHostName.tld
+	ServerAlias www.yourHostName.tld
+	Redirect permanent / https://randby.net/
+&lt;/virtualhost&gt;</pre>
+
+	<p>Restart the apache service by running <code>service apache2 restart</code>, and you are done. Share and enjoy =)</p>
 
 	<h2>Verification</h2>
 	<p>To check that you have things set up properly, feed your site through <a href="https://www.startssl.com/">ssllabs</a> SSL server <a href="https://www.ssllabs.com/ssltest/index.html">testing utility</a>. It will give you a comperhensible assesment as to how well you have done stuff, as well as pointers to what specifics you failed and what to read up on to fix possible weaknesses. Remember to check the little box if you don't want your site to appear on the best/worst leaderboards =)</p>
