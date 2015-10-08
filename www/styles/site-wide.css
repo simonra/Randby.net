@@ -34,7 +34,61 @@ a:hover{
 }
 
 body p{
-	display: inline-block;
+	display: block;
+	float: center;
 	font-size: 1.3em;
 	max-width:40em;
+	text-align: left;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+p + p {
+	margin-top: 1.5em;
+}
+
+/*pre{
+	display: inline-block;
+	font-family: Courier New, serif;
+	background-color: lightgrey;
+	padding: 0;
+	margin: 0;
+}*/
+
+/*Below css taken from this question on stackoverflow and slightly modified to fit my site better: http://stackoverflow.com/questions/9045677/css-help-how-to-format-code-block-and-code-line*/
+code {
+	font-family: Monaco,"Courier New","DejaVu Sans Mono","Bitstream Vera Sans Mono",monospace;
+	color: #52595d;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	-moz-background-clip: padding;
+	-webkit-background-clip: padding-box;
+	background-clip: padding-box;
+	border: 1px solid #ccc;
+	background-color: #f9f9f9;
+	padding: 0 3px;
+	display: inline-block;
+	margin: 0;
+}
+
+pre {
+	border: 1px solid #cacaca;
+	line-height: 1.2em;
+	font-family: Monaco,"Courier New","DejaVu Sans Mono","Bitstream Vera Sans Mono",monospace;
+	text-align: left;
+	padding: 10px;
+	overflow: auto;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	-moz-background-clip: padding;
+	-webkit-background-clip: padding-box;
+	background-clip: padding-box;
+	background-color: #FAFAFB;
+	color: #393939;
+	margin: 0 auto;
+	float: center;
+	/*display: block;*/
+	max-width:50em;
 }
