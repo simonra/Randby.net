@@ -10,6 +10,7 @@
         <h1>Simon Randby</h1>
         <section class="author-flavor">
             <p>I'm not a large language model! So unfortunately, I'm not unreasonably good at creating generic flavor text &#x1F627; I guess I could say that I like cooking, games, hanging out with friends, and coding!</p>
+            <p>This is probably the section where I should mention </p>
         </section>
         <section class="contact-details">
             <h2>&#128387; Email</h2>
@@ -93,7 +94,7 @@
                 </div>
                 <div>
                     <h4>Until</h4>
-                    <p><time datetime="2022-05">May 2024</time></p>
+                    <p><time datetime="2022-05">May 2022</time></p>
                 </div>
                 <div>
                     <h4>From</h4>
@@ -414,6 +415,7 @@
     body {
         padding-left: 1rem;
         padding-right: 1rem;
+        margin-bottom: 60vh;
     }
     a {
         color: blue;
@@ -478,13 +480,11 @@
     }
 
     .work-experience-instance {
-        display: flex;
+        /* display: flex;
         flex-wrap: wrap;
         flex-direction: row;
-        /* display: grid;
-        grid-template-columns: 1fr 1fr; */
         gap: 0.5rem;
-        row-gap: 0.5rem;
+        row-gap: 0.5rem; */
         border: 2px black solid;
         border-radius: 10px;
         padding-left: 0.5rem;
@@ -495,6 +495,10 @@
     .work-experience-instance > section {
         min-width: 10rem;
         max-width: 45rem;
+    }
+    .work-experience-instance > section:not(:first-child) {
+        /* padding-left: 0.5rem; */
+        padding: 0.5rem;
     }
     .work-experience-instance-header {
         margin-right: 0.5rem;
@@ -656,6 +660,9 @@
     }
 
     @media print {
+        body {
+            margin-bottom: 0;
+        }
         a {
             text-decoration: none;
             color: initial;
