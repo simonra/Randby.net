@@ -14,9 +14,9 @@
         </section>
         <section class="contact-details">
             <h2>&#128387; Email</h2>
-            <p><a href="mailto:simon.randby@gmail.com&subject=Awesome%20CV!&body=We'd%20love%20to%20offer%20you%20a%20position!%0A%0ADo%20you%20have%20time%20for%20a%20chat%20about%20it%20next%20week%3F">simon.randby@gmail.com</a></p>
+            <p><a class="no-print-address" href="mailto:simon.randby@gmail.com&subject=Awesome%20CV!&body=We'd%20love%20to%20offer%20you%20a%20position!%0A%0ADo%20you%20have%20time%20for%20a%20chat%20about%20it%20next%20week%3F">simon.randby@gmail.com</a></p>
             <h2>&#128241; Phone</h2>
-            <p><a href="sms:+4747283402">+47 472 83 402</a></p>
+            <p><a class="no-print-address" href="sms:+4747283402">+47 472 83 402</a></p>
         </section>
         <section class="socials">
             <h2>Other</h2>
@@ -25,7 +25,7 @@
             <!-- <p><a href="https://www.pouet.net/user.php?who=100886">Pouët</a></p> -->
         </section>
     </article>
-    <h2><a class="header-link" id="positions" href="#positions">&#128279;</a> Positions</h2>
+    <h2 class="section-header"><a class="header-link" id="positions" href="#positions">&#128279;</a> Positions</h2>
     <article class="work-experience">
         <article class="work-experience-instance">
             <section class="work-experience-instance-header">
@@ -289,9 +289,9 @@
             </section>
         </article>
     </article>
-    <article class="other-experience">
-        <h2>Other experience</h2>
-        <h3><a class="header-link" id="conference_talks" href="#conference_talks">&#128279;</a> Conference talks</h3>
+    <article class="other-experience pagebreak-before">
+        <h2 class="section-header">Other experience</h2>
+        <h3 class="section-header"><a class="header-link" id="conference_talks" href="#conference_talks">&#128279;</a> Conference talks</h3>
         <article class="conference-talks">
             <article class="talk">
                 <h4><a class="header-link" id="conference_talks-hello_stavanger-2024" href="#conference_talks-hello_stavanger-2024">&#128279;</a> When Securing Access to Data is About Life and Death</h4>
@@ -321,7 +321,7 @@
                 <p><a href="https://www.youtube.com/watch?v=DmpIhFNjv-0">YouTube</a></p>
             </article>
         </article>
-        <h3><a class="header-link" id="board_positions" href="#board_positions">&#128279;</a> Board positions</h3>
+        <h3 class="section-header"><a class="header-link" id="board_positions" href="#board_positions">&#128279;</a> Board positions</h3>
         <article class="board-positions">
             <article class="board-position">
                 <h4><a class="header-link" id="board_positions-sameiet_fabrikloekka-2021" href="#board_positions-sameiet_fabrikloekka-2021">&#128279;</a> Board member</h4>
@@ -357,7 +357,7 @@
                 <p>The group focused on live role-playing and general related activities such as costume workshops and miscellaneous courses. My position was largely coordinating events and making sure everything was going smoothly on a day to day basis, and some administrative work regarding the premises we had and The Brønnøysund Register Centre.</p>
             </article>
         </article>
-        <h3><a class="header-link" id="misc" href="#misc">&#128279;</a> Misc</h3>
+        <h3 class="section-header"><a class="header-link" id="misc" href="#misc">&#128279;</a> Misc</h3>
         <article class="misc">
             <article class="misc-instance">
                 <h4><a class="header-link" id="misc-programvareverkstedet-maintainer" href="#misc-programvareverkstedet-maintainer">&#128279;</a> Maintainer</h4>
@@ -376,13 +376,13 @@
                 <p>Kodeløypa was a program for introducing middle school children to programming, using scratch and arduino controlled robots. My role consisted of automating the lab and robot setup to afford greater flexibility with regards to which lab was used and how many machines/students there was capacity for, as well as being an instructor.</p>
             </article>
         </article>
-        <h1>ToDo</h1>
+        <h2 class="section-header">ToDo</h2>
         <p>Demoer</p>
         <p>være med på å orge åreturer</p>
         <p>Brettspillkvelder?</p>
         <p>Julebord?</p>
     </article>
-    <h2><a class="header-link" id="education" href="#education">&#128279;</a> Education</h2>
+    <h2 class="section-header"><a class="header-link" id="education" href="#education">&#128279;</a> Education</h2>
     <article class="education">
         <article class="education-instance">
             <h3><a class="header-link" id="education-ntnu" href="#education-ntnu">&#128279;</a> <a href="http://www.ntnu.edu/studies/mtdt">Master's Degree in Computer Science</a> &mdash; <a href="https://www.ntnu.no/studier/mtdt/studieretninger-og-hovedprofiler#year=2010&programmeCode=MTDT&dir=MTDTIS-10">Specialized in AI</a></h3>
@@ -408,7 +408,7 @@
         </article>
     </article>
     <article class="other-qualifications">
-        <h2>Other qualifications</h2>
+        <h2 class="section-header">Other qualifications</h2>
     </article>
 </body>
 <style>
@@ -421,11 +421,22 @@
         color: blue;
         scroll-margin-top: 1rem;
     }
-    /* article {
-        max-width: 80rem;
-    } */
+    article {
+        /* max-width: 80rem; */
+        justify-content: center;
+    }
     h1, h2, h3, h4, h5, p {
         margin: 0;
+    }
+    .section-header {
+        text-align: center;
+        break-after: avoid;
+    }
+    h2.section-header {
+        margin-top: 2rem;
+    }
+    h3:not(:first-of-type).section-header {
+        margin-top: 2rem;
     }
     .keyword {
         font-weight: bold;
@@ -448,6 +459,7 @@
         /* width: 29rem; */
         min-width: 11rem;
         margin-right: 0.5rem;
+        margin-bottom: 0.5rem;
     }
     .about-author .contact-details h2 {
         font-size: medium;
@@ -462,6 +474,7 @@
     }
     .author-flavor {
         max-width: 50rem;
+        margin-bottom: 1rem;
     }
     .contact-details {
         min-width: 13rem;
@@ -488,7 +501,7 @@
         border: 2px black solid;
         border-radius: 10px;
         padding-left: 0.5rem;
-        page-break-inside: avoid;
+        break-inside: avoid;
         max-width: 91rem;
         padding: 0.5rem;
     }
@@ -660,15 +673,30 @@
     }
 
     @media print {
+        /* @page {
+            size: portrait;
+        } */
         body {
             margin-bottom: 0;
+            /* text-align: center; */
+        }
+        article {
+            /* align-items: center; */
+            justify-content: center;
+            text-align: left;
         }
         a {
             text-decoration: none;
             color: initial;
         }
+        a:not(.no-print-address)::after {
+            content: " (" attr(href) ") ";
+        }
         .header-link {
             display: none !important;
+        }
+        .pagebreak-before {
+            break-before: always;
         }
         .talk {
             max-width: 21rem;
